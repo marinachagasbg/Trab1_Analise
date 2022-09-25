@@ -52,40 +52,46 @@ void mergesort(registro* v,int ini, int fim)
   }
 }
 
-int main()
-{
-	//registro v[500000];
+int main(int argc, char **argv) {
 	registro *v, *q;
 	int i = 0, j = 0;
-	const int n = 5000000;
+	
+	if(argv[1] == NULL) { 
+
+		exit(0);
+	}
+
+	const int n = atoi(argv[1]);
 
 	//srand(time(NULL));
 	srand(1);
 
 	v = malloc (sizeof(registro)*n);
 	if (v==NULL){
-		printf("Nao foi possivel alocar");
+
 	}
 
 	q = malloc (sizeof(registro)*n);
 	if (q==NULL){
-		printf("Nao foi possivel alocar");
-	}
 
+	}
 
 //--------------------------------------------------------------------
 //		Random vector
 
 	for (i = 0; i < n; i++) {
 		v[i].chave = rand() % 100;
-		//printf("%d ", v[i].chave);
+
 	}
 
 
 
 //--------------------------------------------------------------------
 	analysis_parameters parameters;
+
 	create_file();
+	
+
 
 	//CASO MEDIO
 	clock_t begin = clock();
@@ -131,7 +137,9 @@ int main()
 	contador_comparacoes = 0;
 	
 	write_parameters_in_file(parameters);
+
 	close_file();
+
 
 //--------------------------------------------------------------------
 	free(v);

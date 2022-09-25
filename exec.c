@@ -14,7 +14,7 @@ int spawn (char* program, char** arg_list) {
     return child_pid;
   }else {
     execvp(program, arg_list);
-    waitpid(child_pid, NULL, 0);
+    wait(NULL);
     fprintf (stderr, "\num erro ocorreu em execvp\n");
     abort ();
   }
@@ -61,19 +61,22 @@ analysis_parameters calc_analysis_average(analysis_parameters *params, int size)
 int main(int argc, char **argv) {
   const int EXEC_QUANTITY = 10;
   char prog_name[20];
+  char exec_prog_command[20];
   analysis_parameters params[EXEC_QUANTITY];
   memset(params, 0, EXEC_QUANTITY * sizeof(analysis_parameters));
   
-  if(argv[1] != NULL) { 
-    memmove(prog_name, "./", strlen("./") + 1);
-    memmove(prog_name + strlen(prog_name), argv[1], strlen(argv[1]) + 1);
-    printf("%s\n", prog_name);
+  if(argv[1] != NULL && argv[2] != NULL) { 
+    memmove(prog_name, argv[1], strlen(argv[1]) + 1);
+    memmove(exec_prog_command, "./", strlen("./") + 1);
+    memmove(exec_prog_command + strlen(exec_prog_command), argv[1], strlen(argv[1]) + 1);
+    
+    char *args[3] = {prog_name, argv[2], NULL};
     
     for(int i = 0; i < EXEC_QUANTITY; i++) {
       printf("===============execuçao %d===============", i + 1);
-      open_file();
-      spawn(prog_name, NULL);
+      spawn(exec_prog_command, args);
       wait(NULL);
+      open_file();
       params[i] = get_parameters();
       print_params(params[i]);
       close_file();

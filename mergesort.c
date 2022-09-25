@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+#include "file_aux.h"
 
 typedef struct registro registro;
 
@@ -14,29 +15,29 @@ int contador_troca = 0;
 
 void merge(registro *v, int p, int q, int r)
 {
-   int i, j, k;
+	int i, j, k;
    registro *w;
    w = (registro *) malloc( (r-p+1) * sizeof (registro));
-   i = p;
-   j = q+1;
-   k = 0;
+	i = p;
+	j = q+1;
+	k = 0;
 
-   while (i <= q && j <= r) {
-      // comparação
-      contador_comparacoes++;
-      if (v[i].chave <= v[j].chave)
-	      {w[k++] = v[i++];}
-      else
-          w[k++] = v[j++];
-   }
-   while (i <= q)
-      {w[k++] = v[i++];}
-   while (j <= r)
-      {w[k++] = v[j++];}
-   for (i = p; i <= r; ++i)
-      {v[i] = w[i-p]; //troca
-      contador_troca++;}
-   free(w);
+	while (i <= q && j <= r) {
+		// comparação
+		contador_comparacoes++;
+		if (v[i].chave <= v[j].chave)
+			{w[k++] = v[i++];}
+		else
+			w[k++] = v[j++];
+	}
+	while (i <= q)
+		{w[k++] = v[i++];}
+	while (j <= r)
+		{w[k++] = v[j++];}
+	for (i = p; i <= r; ++i)
+		{v[i] = w[i-p]; //troca
+		contador_troca++;}
+	free(w);
 }
 
 
@@ -83,71 +84,54 @@ int main()
 
 
 //--------------------------------------------------------------------
+	analysis_parameters parameters;
+	create_file();
 
-// caso medio
-
-	printf("\nmedio Caso\n");
+	//CASO MEDIO
 	clock_t begin = clock();
 	mergesort(v, 0, n-1);
 	clock_t end = clock();
-
-	printf("\n %lf ", begin);
-	printf("\n %lf ", end);
-
-	double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-	printf("\n %lf \n", time_spent);
-
-	printf("\n Trocas: %d\n Comparacoes: %d\n", contador_troca, contador_comparacoes);
-    contador_troca = 0;
-    contador_comparacoes = 0;
-
-	/*
-	printf("\n\nVetor ordenado\n");
-	for (i = 0; i < 2000; i++)
-		printf("%d ", v[i].chave);
-	*/
-
-// melhor caso
-	printf("\melhor Caso");
+	
+	float time_spent = (float)(end - begin) / CLOCKS_PER_SEC;
+	
+	parameters.middle_case_time = time_spent;
+	parameters.middle_case_swap_quantity = contador_troca;
+	parameters.middle_case_comparison_quantity = contador_comparacoes;
+	contador_troca = 0;
+	contador_comparacoes = 0;
+	
+	//MELHOR CASO
 	begin = clock();
 	mergesort(v, 0, n-1);
 	end = clock();
-
-	printf("\n %lf ", begin);
-	printf("\n %lf ", end);
-
-	time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-	printf("\n %lf \n", time_spent);
-
-	printf("\n Trocas: %d\n Comparacoes: %d\n", contador_troca, contador_comparacoes);
-    contador_troca = 0;
-    contador_comparacoes = 0;
-
-// pior caso
-
+	
+	time_spent = (float)(end - begin) / CLOCKS_PER_SEC;
+	
+	parameters.best_case_time = time_spent;
+	parameters.best_case_swap_quantity = contador_troca;
+	parameters.best_case_comparison_quantity = contador_comparacoes;
+	contador_troca = 0;
+	contador_comparacoes = 0;
+	
+	//PIOR CASO	
 	for (i = 0; i < n; i++){
 		q[i].chave = v[n-i-1].chave;
 	}
-
-
-//	for (i = 0; i < n; i++)
-//		printf("%d ", q[i].chave);
-
-	printf("\nPior Caso");
-
+	
 	begin = clock();
 	mergesort(q, 0, n-1);
 	end = clock();
-
-	printf("\n %lf ", begin);
-	printf("\n %lf ", end);
-
-	time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-	printf("\n %lf \n", time_spent);
-
-	printf("\n Trocas: %d\n Comparacoes: %d\n", contador_troca, contador_comparacoes);
-    contador_troca = 0;
-    contador_comparacoes = 0;
+	
+	time_spent = (float)(end - begin) / CLOCKS_PER_SEC;
+	
+	parameters.worst_case_time = time_spent;
+	parameters.worst_case_swap_quantity = contador_troca;
+	parameters.worst_case_comparison_quantity = contador_comparacoes;
+	contador_troca = 0;
+	contador_comparacoes = 0;
+	
+	write_parameters_in_file(parameters);
+	close_file();
 
 //--------------------------------------------------------------------
 	free(v);

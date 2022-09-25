@@ -6,6 +6,8 @@
 #include <sys/wait.h>
 #include "file_aux.h"
 
+#define ENTRY_QUANTITY 19
+
 int spawn (char* program, char** arg_list) {
   pid_t child_pid;
   child_pid = fork();
@@ -58,33 +60,69 @@ analysis_parameters calc_analysis_average(analysis_parameters *params, int size)
   return average_params;
 }
 
+void write_final_results(analysis_parameters *result_parameters, int exec_quantity) {
+  char results[150];
+  create_file();
+  for(int i = 0; i < exec_quantity; i++) {
+    memset(results, 0, sizeof(results));
+    sprintf(results, "bt: %f | mt: %f | wt: %f | bs: %d | ms: %d | ws: %d | bc: %d | mc: %d | wc: %d\n", 
+      result_parameters[i].best_case_time,
+      result_parameters[i].middle_case_time,
+      result_parameters[i].worst_case_time,
+      result_parameters[i].best_case_swap_quantity,
+      result_parameters[i].middle_case_swap_quantity,
+      result_parameters[i].worst_case_swap_quantity,
+      result_parameters[i].best_case_comparison_quantity,
+      result_parameters[i].middle_case_comparison_quantity,
+      result_parameters[i].worst_case_comparison_quantity
+    );
+    write_in_file(results);
+  }
+  close_file();
+}
+
 int main(int argc, char **argv) {
   const int EXEC_QUANTITY = 10;
   char prog_name[20];
   char exec_prog_command[20];
-  analysis_parameters params[EXEC_QUANTITY];
-  memset(params, 0, EXEC_QUANTITY * sizeof(analysis_parameters));
+  int entry_sizes[ENTRY_QUANTITY] = {
+    1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000,
+    10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 
+    90000, 100000
+  };
+  analysis_parameters final_results[ENTRY_QUANTITY];
   
-  if(argv[1] != NULL && argv[2] != NULL) { 
+  analysis_parameters params[EXEC_QUANTITY];
+  
+  if(argv[1] != NULL) { 
     memmove(prog_name, argv[1], strlen(argv[1]) + 1);
     memmove(exec_prog_command, "./", strlen("./") + 1);
     memmove(exec_prog_command + strlen(exec_prog_command), argv[1], strlen(argv[1]) + 1);
     
-    char *args[3] = {prog_name, argv[2], NULL};
-    
-    for(int i = 0; i < EXEC_QUANTITY; i++) {
-      printf("===============execuçao %d===============", i + 1);
-      spawn(exec_prog_command, args);
-      wait(NULL);
-      open_file();
-      params[i] = get_parameters();
-      print_params(params[i]);
-      close_file();
-      sleep(1);
+    for(int j = 0; j < ENTRY_QUANTITY; j++) {
+      char size_arg[7];
+      sprintf(size_arg, "%d", entry_sizes[j]);
+      char *args[3] = {prog_name, size_arg, NULL};
+      memset(params, 0, EXEC_QUANTITY * sizeof(analysis_parameters));
+      
+      for(int i = 0; i < EXEC_QUANTITY; i++) {
+        printf("===============execuçao %d===============", i + 1);
+        spawn(exec_prog_command, args);
+        wait(NULL);
+        open_file();
+        params[i] = get_parameters();
+        print_params(params[i]);
+        close_file();
+        sleep(1);
+      }
+      
+      printf("===============result===============\n");
+      final_results[j] = calc_analysis_average(params, EXEC_QUANTITY);
+      print_params(final_results[j]);
+      memset(size_arg, 0, sizeof(size_arg));
     }
-    printf("===============result===============\n");
-    analysis_parameters average_params = calc_analysis_average(params, EXEC_QUANTITY);
-    print_params(average_params);
+    
+    write_final_results(final_results, ENTRY_QUANTITY);
   } else {
     printf("esqueceu de passar argv!\n");
   }

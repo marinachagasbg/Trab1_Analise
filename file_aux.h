@@ -1,7 +1,6 @@
 #include <stdio.h>
 
 typedef struct analysis_parameters analysis_parameters;
-
 struct analysis_parameters {
   float best_case_time;
   float middle_case_time;
@@ -17,7 +16,7 @@ struct analysis_parameters {
 extern FILE *fptr;
 int create_file();
 int open_file();
-int write_in_file(float time);
+int write_in_file(char *);
 int write_parameters_in_file(analysis_parameters parameters);
 float* get_time();
 analysis_parameters get_parameters();

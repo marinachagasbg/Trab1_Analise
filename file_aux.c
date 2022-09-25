@@ -29,9 +29,9 @@ int write_parameters_in_file(analysis_parameters parameters) {
   return fwrite(&parameters, sizeof(analysis_parameters), 1, fptr);
 }
 
-int write_in_file(float time) {
+int write_in_file(char *result) {
   fseek(fptr, 0, SEEK_END);
-  return fwrite(&time, sizeof(float), 1, fptr);
+  return fwrite(result, strlen(result), 1, fptr);
 }
 
 float* get_time() {

@@ -91,8 +91,6 @@ int main(int argc, char **argv) {
 
 	create_file();
 	
-
-
 	//CASO MEDIO
 	clock_t begin = clock();
 	mergesort(v, 0, n-1);

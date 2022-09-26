@@ -87,7 +87,7 @@ int main(int argc, char **argv) {
 
 
 //--------------------------------------------------------------------
-	analysis_parameters parameters;
+	analysis_parameters parameters = init_analysis_parameters();
 
 	create_file();
 	

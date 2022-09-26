@@ -14,11 +14,12 @@ struct analysis_parameters {
 };
 
 extern FILE *fptr;
-int create_file();
-int open_file();
-int write_in_file(char *);
-int write_parameters_in_file(analysis_parameters parameters);
-float* get_time();
-analysis_parameters get_parameters();
-void print_params(analysis_parameters param);
-void close_file();
+extern analysis_parameters init_analysis_parameters();
+extern int create_file();
+extern int open_file();
+extern int write_in_file(char *);
+extern int write_parameters_in_file(analysis_parameters parameters);
+extern float* get_time();
+extern analysis_parameters get_parameters();
+extern void print_params(analysis_parameters param);
+extern void close_file();

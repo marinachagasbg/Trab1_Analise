@@ -31,3 +31,8 @@ Durante a execução, o algoritmo passado como argumento será executado 10 veze
 ```
 No caso, os tamanhos das entradas foram definidas usando uma escala logarítmica.
 Por fim, no arquivo `results.bin`, são armazenados os resultados das médias desses resultados, para todos os valores de entrada mostrados acima.
+O arquivo gerado segue o seguinte formato:
+```
+bt:  | mt: | wt: | bs: | ms: | ws: | bc: | mc: | wc: 
+```
+Sendo, `bt` best time, `mt` middle time, `wt` worst time, `bs` best swaps, `ms` middle swaps, `ws` worst swaps, `bc` best comparisons, `mc` middle comparisons, `wc` worst comparisons.

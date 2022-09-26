@@ -5,6 +5,21 @@
 
 FILE *fptr;
 
+analysis_parameters init_analysis_parameters() {
+  analysis_parameters parameters;
+  parameters.best_case_time = 0;
+  parameters.middle_case_time = 0;
+  parameters.worst_case_time = 0;
+  parameters.best_case_swap_quantity = 0;
+  parameters.middle_case_swap_quantity = 0;
+  parameters.worst_case_swap_quantity = 0;
+  parameters.best_case_comparison_quantity = 0;
+  parameters.middle_case_comparison_quantity = 0;
+  parameters.worst_case_comparison_quantity = 0;
+  
+  return parameters;
+}
+
 int create_file() {
   fptr = fopen("results.bin", "wb");
   

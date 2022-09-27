@@ -1,14 +1,19 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+#include <time.h>
+#include "file_aux.h"
 
 typedef struct registro registro;
-int contador_comparacoes = 0;
-int contador_troca = 0;
+unsigned long long int contador_comparacoes = 0;
+unsigned long long int contador_troca = 0;
+
+	// int count_overflow_swap = 0;
+	// int count_overflow_comparison = 0;
+	// const long billion = 1000000000;
 
 struct registro {
 	int chave;
-	//além de outros campos de informação do registro
 };
 
 void insertionsort (registro* v, int n )
@@ -33,109 +38,74 @@ void insertionsort (registro* v, int n )
 }
 
 
-int main()
-{
-	//registro v[500000];
+int main(int argc, char **argv) {
 	registro *v;
 	int i = 0, j =0;
-	const int n = 50000;
+	if(argv[1] == NULL) {
+		exit(0);
+	}
+	
+	const int n = atoi(argv[1]);
 
-	//srand(time(NULL));
-	srand(1);
+	srand(time(NULL));
 
 	v = malloc (sizeof(registro)*n);
-	if (v==NULL){
-		printf("Nao foi possivel alocar");
+
+	for (i = 0; i < n; i++){
+		v[i].chave = rand() % 1000;
 	}
 
+	analysis_parameters parameters = init_analysis_parameters();
+	create_file();
 
-//--------------------------------------------------------------------
-//		Random vector
-
-
-	for ( i =0; i< n ;i+=2){
-		v[i].chave = i;
-		v[i+1].chave = n-i;
-
-	}
-
-	/*
-	for (i = 0; i < n/2; i++) {
-		//v[i].chave = rand() % n;
-		v[i].chave = i;
-		//printf("%d ", v[i].chave);
-	}
-	for (j = n , i = n/2; i < n, j > n/2; j--, i++){
-  		v[i].chave = j;
-	}*/
-
-
-
-
-//--------------------------------------------------------------------
-
-// caso medio
-
-	printf("Caso medio \n");
+	//CASO MEDIO
 
 	clock_t begin = clock();
 	insertionsort(v, n);
 	clock_t end = clock();
 
-	printf("\n %lf ", begin);
-	printf("\n %lf ", end);
+	float time_spent = (float)(end - begin) / CLOCKS_PER_SEC;
 
-	double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-	printf("\n %lf \n", time_spent);
-
-	printf("\n Trocas: %d\n Comparacoes: %d", contador_troca, contador_comparacoes);
-    contador_troca = 0;
-    contador_comparacoes = 0;
-
+	parameters.middle_case_time = time_spent;
+	parameters.middle_case_swap_quantity = contador_troca;
+	parameters.middle_case_comparison_quantity = contador_comparacoes;
+	
+	contador_troca = 0;
+	contador_comparacoes = 0;
 
 
-// melhor caso
-	printf("\nMelhor Caso");
-
+	//MELHOR CASO
 	begin = clock();
 	insertionsort(v, n);
 	end = clock();
 
-	//printf("\n %lf ", begin);
-	//printf("\n %lf ", end);
+	time_spent = (float)(end - begin) / CLOCKS_PER_SEC;
 
-	time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-	printf("\n %lf \n", time_spent);
+	parameters.best_case_time = time_spent;
+	parameters.best_case_swap_quantity = contador_troca;
+	parameters.best_case_comparison_quantity = contador_comparacoes;
+	contador_troca = 0;
+	contador_comparacoes = 0;
 
-	printf("\n Trocas: %d\n Comparacoes: %d", contador_troca, contador_comparacoes);
-    contador_troca = 0;
-    contador_comparacoes = 0;
+	//PIOR CASO
 
-
-// pior caso
-
-	for( i = n, j = 0 ;  i > 0, j < n; i --, j ++){
+	for(i = n, j = 0 ;  i > 0, j < n; i--, j++){
 		v[j].chave = i-1;
 	}
 
-//	for (i = 0; i < n; i++)
-//		printf("%d ", v[i].chave);
-
-	printf("\nPior Caso");
-
+	
 	begin = clock();
 	insertionsort(v, n);
 	end = clock();
 
-	//printf("\n %lf ", begin);
-	//printf("\n %lf ", end);
+	time_spent = (float)(end - begin) / CLOCKS_PER_SEC;
+	parameters.worst_case_time = time_spent;
+	parameters.worst_case_swap_quantity = contador_troca;
+	parameters.worst_case_comparison_quantity = contador_comparacoes;
+	
+	write_parameters_in_file(parameters);
 
-	time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-	printf("\n %lf \n", time_spent);
-    printf("\n Trocas: %d\n Comparacoes: %d", contador_troca, contador_comparacoes);
-
-
-//--------------------------------------------------------------------
+	close_file();
 	free(v);
 	return 0;
 }

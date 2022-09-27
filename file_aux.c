@@ -69,12 +69,12 @@ void print_params(analysis_parameters param) {
   printf("\tbest_case_time: %f\n", param.best_case_time);
   printf("\tmiddle_case_time: %f\n", param.middle_case_time);
   printf("\tworst_case_time: %f\n", param.worst_case_time);
-  printf("\tbest_case_swap_quantity: %d\n", param.best_case_swap_quantity);
-  printf("\tmiddle_case_swap_quantity: %d\n", param.middle_case_swap_quantity);
-  printf("\tworst_case_swap_quantity: %d\n", param.worst_case_swap_quantity);
-  printf("\tbest_case_comparison_quantity: %d\n", param.best_case_comparison_quantity);
-  printf("\tmiddle_case_comparison_quantity: %d\n", param.middle_case_comparison_quantity);
-  printf("\tworst_case_comparison_quantity: %d\n", param.worst_case_comparison_quantity);
+  printf("\tbest_case_swap_quantity: %lld\n", param.best_case_swap_quantity);
+  printf("\tmiddle_case_swap_quantity: %lld\n", param.middle_case_swap_quantity);
+  printf("\tworst_case_swap_quantity: %lld\n", param.worst_case_swap_quantity);
+  printf("\tbest_case_comparison_quantity: %lld\n", param.best_case_comparison_quantity);
+  printf("\tmiddle_case_comparison_quantity: %lld\n", param.middle_case_comparison_quantity);
+  printf("\tworst_case_comparison_quantity: %lld\n", param.worst_case_comparison_quantity);
   printf("}\n");
 }
 

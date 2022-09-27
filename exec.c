@@ -9,11 +9,11 @@
 #define ENTRY_QUANTITY 19
 
 int spawn (char* program, char** arg_list) {
-  pid_t child_pid;
-  child_pid = fork();
+  pid_t chilld_pid;
+  chilld_pid = fork();
   
-  if (child_pid != 0) { 
-    return child_pid;
+  if (chilld_pid != 0) { 
+    return chilld_pid;
   }else {
     execvp(program, arg_list);
     wait(NULL);
@@ -65,7 +65,7 @@ void write_final_results(analysis_parameters *result_parameters, int exec_quanti
   create_file();
   for(int i = 0; i < exec_quantity; i++) {
     memset(results, 0, sizeof(results));
-    sprintf(results, "bt: %f | mt: %f | wt: %f | bs: %d | ms: %d | ws: %d | bc: %d | mc: %d | wc: %d\n", 
+    sprintf(results, "bt: %f | mt: %f | wt: %f | bs: %lld | ms: %lld | ws: %lld | bc: %lld | mc: %lld | wc: %lld\n", 
       result_parameters[i].best_case_time,
       result_parameters[i].middle_case_time,
       result_parameters[i].worst_case_time,
@@ -106,6 +106,7 @@ int main(int argc, char **argv) {
       memset(params, 0, EXEC_QUANTITY * sizeof(analysis_parameters));
       
       for(int i = 0; i < EXEC_QUANTITY; i++) {
+        printf("tamanho: %d\n", entry_sizes[j]);
         printf("===============execuçao %d===============", i + 1);
         spawn(exec_prog_command, args);
         wait(NULL);

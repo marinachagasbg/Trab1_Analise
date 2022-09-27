@@ -5,12 +5,12 @@ struct analysis_parameters {
   float best_case_time;
   float middle_case_time;
   float worst_case_time;
-  int best_case_swap_quantity;
-  int middle_case_swap_quantity;
-  int worst_case_swap_quantity;
-  int best_case_comparison_quantity;
-  int middle_case_comparison_quantity;
-  int worst_case_comparison_quantity;
+  unsigned long long int best_case_swap_quantity;
+  unsigned long long int middle_case_swap_quantity;
+  unsigned long long int worst_case_swap_quantity;
+  unsigned long long int best_case_comparison_quantity;
+  unsigned long long int middle_case_comparison_quantity;
+  unsigned long long int worst_case_comparison_quantity;
 };
 
 extern FILE *fptr;

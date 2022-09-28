@@ -43,7 +43,7 @@ Esse é um algoritmo de fácil implementação, funcionando muito bem para conju
 ![](https://upload.wikimedia.org/wikipedia/commons/0/0f/Insertion-sort-example-300px.gif)
 
 ### Complexidade:
-Esse algoritmo tem como melhor caso, um vetor ordenado, tendo uma complexidade de $O(n)$. Como caso médio, um vetor aleatório, com complexidade $O(n^2)$. Por fim, seu pior caso também tem complexidade $O(n^2)$.
+Esse algoritmo tem como melhor caso, um vetor ordenado, tendo uma complexidade de $O(n)$. Como caso médio, um vetor aleatório, com complexidade $O(n^2)$. Por fim, seu pior caso é um vetor inversamente ordenado, e também tem complexidade $O(n^2)$.
 
 | Melhor Caso | Caso Médio | Pior Caso |
 |-------------|------------|-----------|

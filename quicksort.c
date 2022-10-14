@@ -96,14 +96,14 @@ int main(int argc, char **argv) {
 	
 	analysis_parameters parameters = init_analysis_parameters();
 	int i = 0, j = 0;
-	const int n = atoi(argv[1]);
-	registro *v = generate_middle_time_array(n);
+	const int arr_size = atoi(argv[1]);
+	registro *v = generate_middle_time_array(arr_size);
 	
 	create_file();
 	
 	// CASO MEDIO
 	clock_t begin = clock();
-	quicksort(v, n);
+	quicksort(v, arr_size);
 	clock_t end = clock();
 	
 	float time_spent = (float)(end - begin) / CLOCKS_PER_SEC;
@@ -119,7 +119,7 @@ int main(int argc, char **argv) {
 	// MELHOR CASO
 	
 	begin = clock();
-	quicksort(v, n);
+	quicksort(v, arr_size);
 	end = clock();
 	
 	
@@ -134,9 +134,9 @@ int main(int argc, char **argv) {
 	free(v);
 	
 	//PIOR CASO
-	v = generate_worst_time_array(n);
+	v = generate_worst_time_array(arr_size);
 	begin = clock();
-	quicksort(v, n);
+	quicksort(v, arr_size);
 	end = clock();
 	
 	time_spent = (float)(end - begin) / CLOCKS_PER_SEC;

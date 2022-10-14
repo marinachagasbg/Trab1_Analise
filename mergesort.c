@@ -116,7 +116,6 @@ int main(int argc, char **argv) {
 	//MELHOR CASO
 	begin = clock();
 	mergesort(v, 0, arr_size - 1);
-	free(v);
 	end = clock();
 	
 	time_spent = (float)(end - begin) / CLOCKS_PER_SEC;
@@ -126,6 +125,8 @@ int main(int argc, char **argv) {
 	parameters.best_case_comparison_quantity = contador_comparacoes;
 	contador_troca = 0;
 	contador_comparacoes = 0;
+	
+	free(v);
 	
 	//PIOR CASO	
 	v = generate_worst_time_array(arr_size);

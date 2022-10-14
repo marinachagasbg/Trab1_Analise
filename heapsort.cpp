@@ -115,21 +115,18 @@ float* initMatrix(int n,int features) {
 int main(int argc, char *argv[]) 
 {
   if (argc < 2){
-      exit(1);
+    exit(1);
   }
-
+  
   int i,j;
   int n = atoi(argv[1]);              
   int features = 1;        
   float* matrix = initMatrix(n,features);
   
   FILE *report;
-
+  
   report = fopen("./report.txt","w");
-
-  // init ranked lists
-  //vector<int> rkLists;
-
+  
   vector<int> rkLists(n*features);
   vector<float> feat_list(n*features);
   
@@ -138,66 +135,85 @@ int main(int argc, char *argv[])
       rkLists[i*n+j] = j;
     }
   }
-
+  
   // CRIANDO O VETOR QUE VAI SER ORDENADO:
-
   srand(time(NULL));                      // Gerando aleatório
-
+  
   for (int i = 0; i < n*features; i++) {
-    matrix[i] = rand() % 100; 
+    matrix[i] = rand() % 1000; 
   }
-
-  // -------------------------------------
-
-  // Ordenando
-
+  
+  
   struct timeb start,end;
   float diff;
   analysis_parameters parameters;
-
+  
 	create_file();
-
+  
+  //CASO MEDIO
   ftime(&start);
-
+  
   mainHeapSort(matrix, feat_list, rkLists, n, features);
-
+  
   ftime(&end);
-
+  
   diff = (float) (1000* (end.time - start.time) + (end.millitm - start.millitm));
   diff = diff/1000; 
-
-  printf("\nTamanho do vetor: %d\n", n);
-  printf("Tempo gasto (heap-sort): %lf segundos\n",diff);
-  printf("Número de trocas: %d\n", trocas);
-  printf("Número de comparações: %d\n", comparacoes);
-
-  fprintf(report,"\n  Tamanho do vetor: %d", n);
-  fprintf(report,"\n  Tempo de Ordenação: %f segundos",diff);
-  fprintf(report,"\n  Número de trocas: %d", trocas);
-  fprintf(report,"\n  Número de comparações: %d", comparacoes);
+  
+  parameters.middle_case_time = diff;
+  parameters.middle_case_comparison_quantity = comparacoes;
+  parameters.middle_case_swap_quantity = trocas;
+  
+  comparacoes = 0;
+  trocas = 0;
+  
+  //MELHOR CASO
+  
+  ftime(&start);
+  
+  mainHeapSort(matrix, feat_list, rkLists, n, features);
+  
+  ftime(&end);
+  
+  diff = (float) (1000* (end.time - start.time) + (end.millitm - start.millitm));
+  diff = diff/1000; 
+  
   
   parameters.best_case_time = diff;
-  parameters.middle_case_time = diff;
-  parameters.worst_case_time = diff;
   parameters.best_case_comparison_quantity = comparacoes;
-  parameters.middle_case_comparison_quantity = comparacoes;
-  parameters.worst_case_comparison_quantity = comparacoes;
   parameters.best_case_swap_quantity = trocas;
-  parameters.middle_case_swap_quantity = trocas;
+  
+  comparacoes = 0;
+  trocas = 0;
+  
+  //PIOR CASO
+  
+  for (int i = 0, j = n; i < n*features; i++, j--) {
+    matrix[i] = j; 
+  }
+  
+  ftime(&start);
+  
+  mainHeapSort(matrix, feat_list, rkLists, n, features);
+  
+  ftime(&end);
+  
+  diff = (float) (1000* (end.time - start.time) + (end.millitm - start.millitm));
+  diff = diff/1000; 
+  
+  
+  parameters.worst_case_time = diff;
+  parameters.worst_case_comparison_quantity = comparacoes;
   parameters.worst_case_swap_quantity = trocas;
   
+  comparacoes = 0;
+  trocas = 0;
+  
+  
   write_parameters_in_file(parameters);
-
+  
 	close_file();
-
-
-  // PRINT DA MATRIZ ORDENADA
-
-  // for (int i = 0; i < n*features; i++) {
-  //     printf("%d ",(int)matrix[i]);
-  // }
-
-
+  
   fclose(report);
   return 0;
 }

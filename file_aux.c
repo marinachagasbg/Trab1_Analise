@@ -4,6 +4,7 @@
 #include "file_aux.h"
 
 FILE *fptr;
+FILE *generic_fptr;
 
 analysis_parameters init_analysis_parameters() {
   analysis_parameters parameters;
@@ -21,7 +22,7 @@ analysis_parameters init_analysis_parameters() {
 }
 
 int create_file() {
-  fptr = fopen("results.bin", "wb");
+  fptr = fopen("results.txt", "w");
   
   if(fptr != NULL) {
     return 1;
@@ -31,12 +32,35 @@ int create_file() {
 }
 
 int open_file() {
-  fptr = fopen("results.bin", "rb");
+  fptr = fopen("results.txt", "r");
   if(fptr != NULL) {
     return 1;
   }
   
   return 0;
+}
+
+int create_generic_file(char *file_name) {
+  generic_fptr = fopen(file_name, "w");
+  fclose(generic_fptr);
+}
+
+int open_generic_file(char *file_name) {
+  generic_fptr = fopen(file_name, "a");
+  
+  if(generic_fptr != NULL) {
+    return 1;
+  }
+  
+  return 0;
+}
+
+int write_in_generic_file(char *results) {
+  return fwrite(results, strlen(results), 1, generic_fptr);
+}
+
+void close_generic_file() {
+  fclose(generic_fptr);
 }
 
 int write_parameters_in_file(analysis_parameters parameters) {

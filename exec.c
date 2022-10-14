@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <math.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include "file_aux.h"
@@ -29,6 +30,66 @@ float calc_average(float *arr, int n) {
   }
   
   return sum / n;
+}
+
+float somatorio(float *arr, int initial_index, int final_index) {
+  float sum = 0.0;
+  
+  if(initial_index < final_index) {    
+    for(int i = initial_index; i < final_index; i++) {
+      sum += arr[i];
+    }
+  }
+  
+  return sum;
+}
+
+float *get_float_parameter_array(analysis_parameters *arr, int array_size, parameters_t parameter) {
+  float *parameter_list = (float *)malloc(array_size * sizeof(float));
+  memset(parameter_list, 0, sizeof(parameter_list));
+  
+  switch (parameter) {
+    case 1:
+      for(int i = 0; i < array_size; i++) {
+        parameter_list[i] = arr[i].best_case_time;
+      }
+    break;
+    
+    case 2:
+      for(int i = 0; i < array_size; i++) {
+        parameter_list[i] = arr[i].middle_case_time;
+      }
+      
+    break;
+    
+    case 3:
+      for(int i = 0; i < array_size; i++) {
+        parameter_list[i] = arr[i].worst_case_time;
+      }
+    break;
+  }
+  
+  return parameter_list;
+}
+
+float media(float *arr, int size) {
+  float sum = somatorio(arr, 0, size);
+  
+  return sum / size;
+}
+
+float standard_deviation(float *arr, double media, int arr_size) {
+  float sum = 0.0;
+  
+  for(int i = 0; i < arr_size; i++) {
+    float diff = arr[i] - media;
+    float pow_of_diff = pow(diff, 2);
+    sum += pow_of_diff;
+  }
+  
+  float div = sum / (arr_size);
+  float desvio = sqrt(div);
+  return desvio;
 }
 
 analysis_parameters calc_analysis_average(analysis_parameters *params, int size) {
@@ -98,9 +159,11 @@ int main(int argc, char **argv) {
     memmove(prog_name, argv[1], strlen(argv[1]) + 1);
     memmove(exec_prog_command, "./", strlen("./") + 1);
     memmove(exec_prog_command + strlen(exec_prog_command), argv[1], strlen(argv[1]) + 1);
+    create_generic_file("desvios.txt");
+    
+    char size_arg[7];
     
     for(int j = 0; j < ENTRY_QUANTITY; j++) {
-      char size_arg[7];
       sprintf(size_arg, "%d", entry_sizes[j]);
       char *args[3] = {prog_name, size_arg, NULL};
       memset(params, 0, EXEC_QUANTITY * sizeof(analysis_parameters));
@@ -120,7 +183,31 @@ int main(int argc, char **argv) {
       printf("===============result===============\n");
       final_results[j] = calc_analysis_average(params, EXEC_QUANTITY);
       print_params(final_results[j]);
+      
+      float *best_case_time_list = get_float_parameter_array(params, EXEC_QUANTITY, 1);
+      float *middle_case_time_list = get_float_parameter_array(params, EXEC_QUANTITY, 2);
+      float *worst_case_time_list = get_float_parameter_array(params, EXEC_QUANTITY, 3);
+      float best_case_time_standard_deviation = standard_deviation(best_case_time_list, media(best_case_time_list, EXEC_QUANTITY), EXEC_QUANTITY);
+      float middle_case_time_standard_deviation = standard_deviation(middle_case_time_list, media(middle_case_time_list, EXEC_QUANTITY), EXEC_QUANTITY);
+      float worst_case_time_standard_deviation = standard_deviation(worst_case_time_list, media(worst_case_time_list, EXEC_QUANTITY), EXEC_QUANTITY);
+      
+      printf("best_case_time_standard_deviation = %f\n", best_case_time_standard_deviation);
+      printf("middle_case_time_standard_deviation = %f\n", middle_case_time_standard_deviation);
+      printf("worst_case_time_standard_deviation = %f\n", worst_case_time_standard_deviation);
+      
+      char buffer[150];
+      sprintf(buffer, "bt: %f | mt: %f | wt: %f\n", best_case_time_standard_deviation, middle_case_time_standard_deviation, worst_case_time_standard_deviation);
+      
+      open_generic_file("desvios.txt");
+      write_in_generic_file(buffer);
+      close_generic_file();
+      
+      memset(buffer, 0, sizeof(buffer));
       memset(size_arg, 0, sizeof(size_arg));
+      
+      free(best_case_time_list);
+      free(middle_case_time_list);
+      free(worst_case_time_list);
     }
     
     write_final_results(final_results, ENTRY_QUANTITY);

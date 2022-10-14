@@ -1,2 +1,2 @@
 #!/bin/bash
-rm *.o *.bin *.txt heapsort
+rm *.o *.txt heapsort

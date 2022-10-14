@@ -89,12 +89,11 @@ registro *generate_worst_time_array(int array_size) {
 }
 
 int main(int argc, char **argv) {
-	int i = 0, j = 0;
-	
 	if(argv[1] == NULL) { 
 		exit(0);
 	}
 	
+	int i = 0, j = 0;
 	const int arr_size = atoi(argv[1]);
 	analysis_parameters parameters = init_analysis_parameters();
 	registro *v = generate_middle_time_array(arr_size);

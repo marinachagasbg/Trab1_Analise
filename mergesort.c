@@ -7,93 +7,103 @@ typedef struct registro registro;
 
 struct registro {
 	int chave;
-	//além de outros campos de informação do registro
 };
 
-int contador_comparacoes = 0;
-int contador_troca = 0;
+unsigned long long contador_comparacoes = 0;
+unsigned long long contador_troca = 0;
 
-void merge(registro *v, int p, int q, int r)
-{
-	int i, j, k;
-   registro *w;
-   w = (registro *) malloc( (r-p+1) * sizeof (registro));
-	i = p;
-	j = q+1;
-	k = 0;
-
+void merge(registro *v, int p, int q, int r) {
+	registro *w = (registro *) malloc((r-p+1) * sizeof (registro));
+	int i = p;
+	int j = q+1;
+	int k = 0;
+	
 	while (i <= q && j <= r) {
-		// comparação
 		contador_comparacoes++;
-		if (v[i].chave <= v[j].chave)
-			{w[k++] = v[i++];}
-		else
+		
+		if (v[i].chave <= v[j].chave) { 
+			w[k++] = v[i++];
+		} else { 
 			w[k++] = v[j++];
+		}
 	}
-	while (i <= q)
-		{w[k++] = v[i++];}
-	while (j <= r)
-		{w[k++] = v[j++];}
-	for (i = p; i <= r; ++i)
-		{v[i] = w[i-p]; //troca
-		contador_troca++;}
+	
+	while (i <= q) {
+		w[k++] = v[i++];
+	}
+	
+	while (j <= r) {
+		w[k++] = v[j++];
+	}
+	
+	for (i = p; i <= r; ++i) {
+		v[i] = w[i-p];
+		contador_troca++;
+	}
+	
 	free(w);
 }
 
+void print_arr(registro *arr, int arr_size) {
+	for(int i = 0; i < arr_size; i++) {
+		printf("%d ", arr[i].chave);
+	}
+	
+	printf("\n");
+}
 
-void mergesort(registro* v,int ini, int fim)
-{
+void mergesort(registro* v,int ini, int fim) {
   int meio;
-  if  (ini < fim) {
+  if (ini < fim) {
     meio = ( ini + fim ) / 2;
-    mergesort(v, ini, meio );
+    mergesort(v, ini, meio);
     mergesort(v, meio+1, fim);
-    merge(v, ini, meio, fim );
+    merge(v, ini, meio, fim);
   }
 }
 
+registro *generate_middle_time_array(int array_size) {
+	registro *array = (registro *)malloc(array_size * sizeof(registro));
+	
+	srand(time(NULL));
+	
+	for(int i = 0; i < array_size; i++) {
+		array[i].chave = rand() % 1000;
+	}
+	
+	return array;
+}
+
+registro *generate_worst_time_array(int array_size) {
+	registro *array = (registro *)malloc(array_size * sizeof(registro));
+	
+	for (int i = 0, j = 1; i < array_size / 2; i++, j += 2){
+		array[i].chave = j;
+	}
+	
+	for (int i = 1, j = 2; i < array_size; i++, j += 2) {
+		array[i].chave = j;
+	}
+	
+	return array;
+}
+
 int main(int argc, char **argv) {
-	registro *v, *q;
 	int i = 0, j = 0;
 	
 	if(argv[1] == NULL) { 
-
 		exit(0);
 	}
-
-	const int n = atoi(argv[1]);
-
-	//srand(time(NULL));
-	srand(1);
-
-	v = malloc (sizeof(registro)*n);
-	if (v==NULL){
-
-	}
-
-	q = malloc (sizeof(registro)*n);
-	if (q==NULL){
-
-	}
-
-//--------------------------------------------------------------------
-//		Random vector
-
-	for (i = 0; i < n; i++) {
-		v[i].chave = rand() % 100;
-
-	}
-
-
-
-//--------------------------------------------------------------------
+	
+	const int arr_size = atoi(argv[1]);
 	analysis_parameters parameters = init_analysis_parameters();
-
+	registro *v = generate_middle_time_array(arr_size);
+	
 	create_file();
 	
 	//CASO MEDIO
 	clock_t begin = clock();
-	mergesort(v, 0, n-1);
+	mergesort(v, 0, arr_size - 1);
 	clock_t end = clock();
 	
 	float time_spent = (float)(end - begin) / CLOCKS_PER_SEC;
@@ -106,7 +116,8 @@ int main(int argc, char **argv) {
 	
 	//MELHOR CASO
 	begin = clock();
-	mergesort(v, 0, n-1);
+	mergesort(v, 0, arr_size - 1);
+	free(v);
 	end = clock();
 	
 	time_spent = (float)(end - begin) / CLOCKS_PER_SEC;
@@ -118,12 +129,10 @@ int main(int argc, char **argv) {
 	contador_comparacoes = 0;
 	
 	//PIOR CASO	
-	for (i = 0; i < n; i++){
-		q[i].chave = v[n-i-1].chave;
-	}
+	v = generate_worst_time_array(arr_size);
 	
 	begin = clock();
-	mergesort(q, 0, n-1);
+	mergesort(v, 0, arr_size - 1);
 	end = clock();
 	
 	time_spent = (float)(end - begin) / CLOCKS_PER_SEC;
@@ -135,12 +144,8 @@ int main(int argc, char **argv) {
 	contador_comparacoes = 0;
 	
 	write_parameters_in_file(parameters);
-
 	close_file();
-
-
-//--------------------------------------------------------------------
+	
 	free(v);
 	return 0;
 }
-

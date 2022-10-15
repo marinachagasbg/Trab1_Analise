@@ -75,8 +75,11 @@ Esse algoritmo tem como melhor caso, um vetor ordenado, tendo uma complexidade d
 |100000 |0.000244 +- 0.000013|6.494386 +- 0.058193|13.004524 +- 0.105184|
 
 
-<img src="graficos/insertionsort.png" />
-<br>
+<div>
+  <img src="graficos/insertion-bt.png" />
+  <img src="graficos/insertion-mt.png" />
+  <img src="graficos/insertion-wt.png" />
+</div>
 <br>
 
 ### `resultados de comparações:`
@@ -171,10 +174,11 @@ Outro ponto importante desse algorítmo, é que esse não possuí melhor ou pior
 |90000  |6.233660 +- 0.037623 |6.236459 +- 0.044807|6.220954 +- 0.050262|
 |100000 |7.687194 +- 0.053724 |7.692758 +- 0.039498|7.693500 +- 0.042822|
 
-<br>
-
-**GRAFICO AQUI!**
-
+<div>
+  <img src="graficos/selection-bt.png" />
+  <img src="graficos/selection-mt.png" />
+  <img src="graficos/selection-wt.png" />
+</div>
 <br>
 
 ### `resultados de comparações:`
@@ -277,10 +281,12 @@ A maior vantagem do merge sort é observada em **conjuntos grandes de dados**, s
 |80000  |0.007271 +- 0.000387|0.018747 +- 0.002563|0.007088 +- 0.000501|
 |90000  |0.008290 +- 0.000472|0.019640 +- 0.003068|0.007718 +- 0.000480|
 |100000 |0.009198 +- 0.000426|0.019854 +- 0.039498|0.009400 +- 0.000868|
-<br>
 
-**GRAFICO AQUI!**
-
+<div>
+  <img src="graficos/merge-bt.png" />
+  <img src="graficos/merge-mt.png" />
+  <img src="graficos/merge-wt.png" />
+</div>
 <br>
 
 ### `resultados de comparações:`
@@ -377,10 +383,11 @@ Esse algoritmo tem a mesma complexidade para os 3 casos, independente da organiz
 |90000  |0.041500 +- 0.001910|0.045200 +- 0.002522|0.031200 +- 0.000872|
 |100000 |0.045300 +- 0.001616|0.048800 +- 0.002315|0.034100 +- 0.000700|
 
-<br>
-
-**GRAFICO AQUI!**
-
+<div>
+  <img src="graficos/heap-bt.png" />
+  <img src="graficos/heap-mt.png" />
+  <img src="graficos/heap-wt.png" />
+</div>
 <br>
 
 ### `resultados de comparações:`
@@ -479,10 +486,11 @@ O melhor caso e o caso médio possuem a mesma complexidade. O problema está no 
 |90000  |0.003980 +- 0.000368|0.012758 +- 0.003758|0.004183 +- 0.000535|
 |100000 |0.004676 +- 0.000356|0.013372 +- 0.003469|0.004996 +- 0.000619|
 
-<br>
-
-**GRAFICO AQUI!**
-
+<div>
+  <img src="graficos/quick-bt.png" />
+  <img src="graficos/quick-mt.png" />
+  <img src="graficos/quick-wt.png" />
+</div>
 <br>
 
 ### `resultados de comparações:`

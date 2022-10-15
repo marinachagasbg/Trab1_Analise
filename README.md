@@ -105,8 +105,7 @@ Esse algoritmo tem como melhor caso, um vetor ordenado, tendo uma complexidade d
 |90000  |89999        |2021889313  |4050044999 |
 |100000 |99999        |2497400096  |5000049999 |
 
-<img src="graficos/insertionsort-comparisons.png" />
-<br>
+<img src="graficos/insertionsort-comparisons.png" width="376" height="282" />
 <br>
 
 ### `resultados de trocas:`
@@ -132,12 +131,10 @@ Esse algoritmo tem como melhor caso, um vetor ordenado, tendo uma complexidade d
 |90000  |89999        |2021889313  |4050044999 |
 |100000 |99999        |2497400096  |5000049999 |
 
-<img src="graficos/insertionsort-permutations.png" />
-
-<br>
+<img src="graficos/insertionsort-permutations.png" width="376" height="282" />
 <br>
 
-## Selection Sort
+# Selection Sort
 Tem como objetivo colocar os menores elementos na nas primeiras posições do vetor, até que a ordenação seja concluída. Para isso, o algoritmo é composto por dois laços, sendo mais externo que controla o índice e o segundo que faz a varredura do vetor.<br>
 Esse é um algoritmo **in-place**, simples de ser implementado, sendo bom para **conjuntos de dados pequenos**. Seu problema está em conjuntos grandes de dados, sendo muito ruim nesse caso.<br>
 Seu funcionamento pode ser demonstrado abaixo:
@@ -204,11 +201,9 @@ Outro ponto importante desse algorítmo, é que esse não possuí melhor ou pior
 |90000  |4049955000   |4049955000  |4049955000 |
 |100000 |4999950000   |4999950000  |4999950000 |
 
+<img src="graficos/selection-comparisons.png" width="376" height="282" />
 <br>
 
-**GRAFICO AQUI!**
-
-<br>
 
 ### `resultados de trocas:`
 |Tamanho| Melhor Caso | Caso Médio | Pior Caso |
@@ -233,13 +228,11 @@ Outro ponto importante desse algorítmo, é que esse não possuí melhor ou pior
 |90000  |179998       |179998      |179998     |
 |100000 |199998       |199998      |199998     |
 
+<img src="graficos/selection-permutations.png" width="376" height="282" />
 <br>
 
-**GRAFICO AQUI!**
 
-<br>
-
-## Merge Sort:
+# Merge Sort:
 O merge sort é um algoritmo de ordeção do tipo `divisão e conquista`, tendo como ideia básica dividir o problema em problemas menores, que são resolvidos e depois, o resultado final se dá pela união das soluções desses subproblemas. <br>
 O algoritmo conta com três etapas:<br>
 - Dividir, em que é calculado o ponto médio do conjunto. Essa etapa tem tempo constante $(Θ(1))$
@@ -312,10 +305,7 @@ A maior vantagem do merge sort é observada em **conjuntos grandes de dados**, s
 |90000  |765248       |1369350     |765248     |
 |100000 |853904       |1536214     |853904     |
 
-<br>
-
-**GRAFICO AQUI!**
-
+<img src="graficos/merge-comparisons.png" width="376" height="282" />
 <br>
 
 ### `resultados de trocas:`
@@ -341,13 +331,11 @@ A maior vantagem do merge sort é observada em **conjuntos grandes de dados**, s
 |90000  |1488928      |1488928     |1488928    |
 |100000 |1668928      |1668928     |1668928    |
 
+<img src="graficos/merge-permutations.png" width="376" height="282" />
 <br>
 
-**GRAFICO AQUI!**
 
-<br>
-
-## Heap Sort
+# Heap Sort
 O Heap Sort é um algoritmo de **ordenação por seleção**. Esse, utiliza uma estrutura de dados **heap** para fazer a ordenação dos elementos. Essa heap pode ser representada como uma árvore ou vetor. Quando todos os elementos são adiconados na heap, é possível remover os elementos da raiz, mantendo a propriedade do **heap-max**.
 
 ![](https://upload.wikimedia.org/wikipedia/commons/4/4d/Heapsort-example.gif)
@@ -413,10 +401,7 @@ Esse algoritmo tem a mesma complexidade para os 3 casos, independente da organiz
 |90000  |2268362      |2268362     |2177378    |
 |100000 |2544060      |2544060     |2445237    |
 
-<br>
-
-**GRAFICO AQUI!**
-
+<img src="graficos/merge-comparisons.png" width="376" height="282" />
 <br>
 
 ### `resultados de trocas:`
@@ -442,13 +427,10 @@ Esse algoritmo tem a mesma complexidade para os 3 casos, independente da organiz
 |90000  |1402873      |1402873     |1334932    |
 |100000 |1573896      |1573896     |1497434    |
 
+<img src="graficos/heap-permutations.png" width="376" height="282" />
 <br>
 
-**GRAFICO AQUI!**
-
-<br>
-
-## Quick Sort
+# Quick Sort
 Esse algoritmo usa a estratégia de **divisão e conquista**. A ideia consiste em utilizar um pivô como base, dividindo o conjunto em dois, contendo os valores maiores e menores que esse pivô. Então esse algoritmo é chamado **recursivamente** para os dois subconjuntos. Basicamente, as etapas são:
 - Escolha do pivo
 - Particiona o conjunto, colocando os elementos menores que o pivô para a esquerda desse, e os maiores a direita.
@@ -516,10 +498,7 @@ O melhor caso e o caso médio possuem a mesma complexidade. O problema está no 
 |90000  |1597677      |1889278     |1597687    |
 |100000 |1775399      |2102998     |1775428    |
 
-<br>
-
-**GRAFICO AQUI!**
-
+<img src="graficos/quick-comparisons.png" width="376" height="282" />
 <br>
 
 ### `resultados de trocas:`
@@ -545,8 +524,5 @@ O melhor caso e o caso médio possuem a mesma complexidade. O problema está no 
 |90000  |268884       |477126      |313850     |
 |100000 |305360       |537596      |355334     |
 
-<br>
-
-**GRAFICO AQUI!**
-
+<img src="graficos/quick-permutations.png" width="376" height="282" />
 <br>

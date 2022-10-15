@@ -81,7 +81,6 @@ int main(int argc, char **argv) {
 	parameters.middle_case_time = time_spent;
 	parameters.middle_case_swap_quantity = contador_troca;
 	parameters.middle_case_comparison_quantity = contador_comparacoes;
-	
 	contador_troca = 0;
 	contador_comparacoes = 0;
 	

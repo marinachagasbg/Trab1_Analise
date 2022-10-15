@@ -35,7 +35,8 @@ O arquivo gerado segue o seguinte formato:
 ```
 bt:  | mt: | wt: | bs: | ms: | ws: | bc: | mc: | wc: 
 ```
-Sendo, `bt` best time, `mt` middle time, `wt` worst time, `bs` best swaps, `ms` middle swaps, `ws` worst swaps, `bc` best comparisons, `mc` middle comparisons, `wc` worst comparisons.
+Sendo, `bt` best time, `mt` middle time, `wt` worst time, `bs` best swaps, `ms` middle swaps, `ws` worst swaps, `bc` best comparisons, `mc` middle comparisons, `wc` worst comparisons. <br>
+Nos gráficos, as colunas `DP` referem-se ao `desvio padrão` do conjunto.
 # Insertion Sort
 O algoritmo Inserion Sort é um algoritmo de ordenação por inserção, que funciona como em um jogo de cartas, quando deseja-se organizá-las de forma ordenada. Ao receber uma nova carta, essa deve ser colocada em sua respectiva posição.
 Esse é um algoritmo de fácil implementação, funcionando muito bem para **conjuntos de dados pequenos**.
@@ -227,6 +228,112 @@ Outro ponto importante desse algorítmo, é que esse não possuí melhor ou pior
 |80000  |159998       |159998      |159998     |
 |90000  |179998       |179998      |179998     |
 |100000 |199998       |199998      |199998     |
+
+<br>
+
+**GRAFICO AQUI!**
+
+<br>
+
+## Merge Sort:
+O merge sort é um algoritmo de ordeção do tipo `divisão e conquista`, tendo como ideia básica dividir o problema em problemas menores, que são resolvidos e depois, o resultado final se dá pela união das soluções desses subproblemas. <br>
+O algoritmo conta com três etapas:<br>
+- Dividir, em que é calculado o ponto médio do conjunto. Essa etapa tem tempo constante $(Θ(1))$
+- Conquistar, em que os subproblemas são resolvidos individualmente. Essa etapa tem tempo de $2T(n / 2)$, já que o tamanho do subconjunto após a divisão é $n / 2$
+- Combinar, unindo todos os subconjuntos ordenados, levando um tempo de $(Θ(n))$
+
+Alguns pontos importantes sobre esse algoritmo é que ele não é **in-place**, necessitando de um vetor auxiliar; utiliza recursão, tendo um gasto extra de memória em cada chamada recursiva.
+Seu funcionamento pode ser demonstrado abaixo:
+
+![](https://upload.wikimedia.org/wikipedia/commons/c/cc/Merge-sort-example-300px.gif)
+
+### Complexidade:
+A maior vantagem do merge sort é observada em **conjuntos grandes de dados**, sendo ruins para conjuntos pequenos. Um ponto importante é que a complexidade é a mesma para todos os casos, independente da disposição dos elementos no conjunto, sendo $O(nlog_2n)$.
+
+|  Melhor Caso  |  Caso Médio  |  Pior Caso  |
+|---------------|--------------|-------------|
+| $O(nlog_2n)$  |$O(nlog_2n)$  | $O(nlog_2n)$|
+<br>
+
+### `resultados de tempo:`
+|Tamanho| Melhor Caso | Caso Médio | Pior Caso | DP Melhor Caso | DP Caso Médio | DP Pior Caso |
+|-------|-------------|------------|-----------|----------------|---------------|--------------|
+|1000   |0.000151     |0.000285    |0.000159   |0.000039        |0.000062       |0.000048      |
+|2000   |0.000387     |0.000673    |0.000354   |0.000055        |0.000160       |0.000058      |
+|3000   |0.000660     |0.001119    |0.000642   |0.000096        |0.000183       |0.000104      |
+|4000   |0.000900     |0.001581    |0.000844   |0.000171        |0.000361       |0.000160      |
+|5000   |0.001024     |0.001733    |0.000972   |0.000275        |0.000469       |0.000273      |
+|6000   |0.001257     |0.002134    |0.001089   |0.000416        |0.000803       |0.000302      |
+|7000   |0.001215     |0.002264    |0.001111   |0.000493        |0.000939       |0.000398      |
+|8000   |0.001047     |0.001895    |0.001028   |0.000504        |0.001038       |0.000430      |
+|9000   |0.001704     |0.003123    |0.001673   |0.000581        |0.001198       |0.000512      |
+|10000  |0.001658     |0.003072    |0.001591   |0.000591        |0.002160       |0.000590      |
+|20000  |0.002868     |0.007214    |0.001854   |0.000870        |0.002998       |0.000421      |
+|30000  |0.003546     |0.010179    |0.002671   |0.000939        |0.001684       |0.000320      |
+|40000  |0.004198     |0.013534    |0.003364   |0.000648        |0.003280       |0.000131      |
+|50000  |0.004594     |0.014730    |0.004152   |0.000363        |0.003238       |0.000299      |
+|60000  |0.005364     |0.014819    |0.005276   |0.000307        |0.003103       |0.000231      |
+|70000  |0.006606     |0.015633    |0.006073   |0.000685        |0.002535       |0.000767      |
+|80000  |0.007271     |0.018747    |0.007088   |0.000387        |0.002563       |0.000501      |
+|90000  |0.008290     |0.019640    |0.007718   |0.000472        |0.003068       |0.000480      |
+|100000 |0.009198     |0.019854    |0.009400   |0.000426        |0.039498       |0.000868      |
+<br>
+
+**GRAFICO AQUI!**
+
+<br>
+
+### `resultados de comparações:`
+|Tamanho| Melhor Caso | Caso Médio | Pior Caso |
+|-------|-------------|------------|-----------|
+|1000   |5044         |8713        |5044       |
+|2000   |11088        |19402       |11088      |
+|3000   |18076        |30931       |18076      |
+|4000   |24176        |42828       |24176      |
+|5000   |32004        |55233       |32004      |
+|6000   |39152        |67847       |39152      |
+|7000   |46180        |80661       |46180      |
+|8000   |52352        |93622       |52352      |
+|9000   |60796        |106993      |60796      |
+|10000  |69008        |120438      |69008      |
+|20000  |148016       |260887      |148016     |
+|30000  |227728       |408573      |227728     |
+|40000  |316032       |561756      |316032     |
+|50000  |401952       |718114      |401952     |
+|60000  |485456       |877111      |485456     |
+|70000  |573728       |1038884     |573728     |
+|80000  |672064       |1203509     |672064     |
+|90000  |765248       |1369350     |765248     |
+|100000 |853904       |1536214     |853904     |
+
+<br>
+
+**GRAFICO AQUI!**
+
+<br>
+
+### `resultados de trocas:`
+|Tamanho| Melhor Caso | Caso Médio | Pior Caso |
+|-------|-------------|------------|-----------|
+|1000   |9976         |9976        |9976       |
+|2000   |21952        |21952       |21952      |
+|3000   |34904        |34904       |34904      |
+|4000   |47904        |47904       |47904      |
+|5000   |61808        |61808       |61808      |
+|6000   |75808        |75808       |75808      |
+|7000   |89808        |89808       |89808      |
+|8000   |103808       |103808      |103808     |
+|9000   |118616       |118616      |118616     |
+|10000  |133616       |133616      |133616     |
+|20000  |287232       |287232      |287232     |
+|30000  |447232       |447232      |447232     |
+|40000  |614464       |614464      |614464     |
+|50000  |784464       |784464      |784464     |
+|60000  |954464       |954464      |954464     |
+|70000  |1128928      |1128928     |1128928    |
+|80000  |1308928      |1308928     |1308928    |
+|90000  |1488928      |1488928     |1488928    |
+|100000 |1668928      |1668928     |1668928    |
 
 <br>
 

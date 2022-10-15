@@ -38,7 +38,7 @@ bt:  | mt: | wt: | bs: | ms: | ws: | bc: | mc: | wc:
 Sendo, `bt` best time, `mt` middle time, `wt` worst time, `bs` best swaps, `ms` middle swaps, `ws` worst swaps, `bc` best comparisons, `mc` middle comparisons, `wc` worst comparisons.
 # Insertion Sort
 O algoritmo Inserion Sort é um algoritmo de ordenação por inserção, que funciona como em um jogo de cartas, quando deseja-se organizá-las de forma ordenada. Ao receber uma nova carta, essa deve ser colocada em sua respectiva posição.
-Esse é um algoritmo de fácil implementação, funcionando muito bem para conjuntos pequenos de dados.
+Esse é um algoritmo de fácil implementação, funcionando muito bem para **conjuntos de dados pequenos**.
 
 ![](https://upload.wikimedia.org/wikipedia/commons/0/0f/Insertion-sort-example-300px.gif)
 
@@ -48,31 +48,34 @@ Esse algoritmo tem como melhor caso, um vetor ordenado, tendo uma complexidade d
 | Melhor Caso | Caso Médio | Pior Caso |
 |-------------|------------|-----------|
 | $$O(n)$$    | $$O(n^2)$$ | $$O(n^2)$$|
+<br>
 
 ###   `resultados de tempo:`
 |Tamanho| Melhor Caso | Caso Médio | Pior Caso |
 |-------|-------------|------------|-----------|
-|1000   |0.000007     |0.001370    |0.002482   |
-|2000   |0.000013     |0.005331    |0.006801   |
-|3000   |0.000011     |0.012325    |0.013147   |
-|4000   |0.000014     |0.017734    |0.023528   |
-|5000   |0.000016     |0.022770    |0.037410   |
-|6000   |0.000016     |0.030923    |0.053166   |
-|7000   |0.000022     |0.041009    |0.070763   |
-|8000   |0.000023     |0.052066    |0.091798   |
-|9000   |0.000027     |0.064697    |0.113897   |
-|10000  |0.000030     |0.078917    |0.138940   |
-|20000  |0.000060     |0.285573    |0.549059   |
-|30000  |0.000083     |0.629898    |1.235186   |
-|40000  |0.000112     |1.108555    |2.203908   |
-|50000  |0.000127     |1.730193    |3.439650   |
-|60000  |0.000151     |2.496914    |4.929368   |
-|70000  |0.000177     |3.413527    |6.736339   |
-|80000  |0.000212     |4.506484    |8.940735   |
-|90000  |0.000227     |5.579498    |11.100466  |
-|100000 |0.000256     |6.946194    |13.843966  |
+|1000   |0.000011     |0.002167    |0.004182   |
+|2000   |0.000017     |0.007814    |0.009874   |
+|3000   |0.000013     |0.009569    |0.013471   |
+|4000   |0.000015     |0.018785    |0.023489   |
+|5000   |0.000015     |0.027829    |0.036772   |
+|6000   |0.000017     |0.034587    |0.052905   |
+|7000   |0.000023     |0.041217    |0.068538   |
+|8000   |0.000023     |0.056260    |0.088156   |
+|9000   |0.000026     |0.066985    |0.107166   |
+|10000  |0.000027     |0.078784    |0.134806   |
+|20000  |0.000053     |0.274741    |0.517515   |
+|30000  |0.000072     |0.596632    |1.163152   |
+|40000  |0.000098     |1.053718    |2.068533   |
+|50000  |0.000125     |1.650559    |3.266188   |
+|60000  |0.000142     |2.355638    |4.702376   |
+|70000  |0.000176     |3.269323    |6.433713   |
+|80000  |0.000193     |4.165521    |8.362144   |
+|90000  |0.000223     |5.432963    |10.707689  |
+|100000 |0.000244     |6.494386    |13.004524  |
 
 <img src="graficos/insertionsort.png" />
+<br>
+<br>
 
 ### `resultados de comparações:`
 |Tamanho| Melhor Caso | Caso Médio | Pior Caso |
@@ -98,6 +101,8 @@ Esse algoritmo tem como melhor caso, um vetor ordenado, tendo uma complexidade d
 |100000 |99999        |2497400096  |5000049999 |
 
 <img src="graficos/insertionsort-comparisons.png" />
+<br>
+<br>
 
 ### `resultados de trocas:`
 |Tamanho| Melhor Caso | Caso Médio | Pior Caso |
@@ -123,3 +128,107 @@ Esse algoritmo tem como melhor caso, um vetor ordenado, tendo uma complexidade d
 |100000 |99999        |2497400096  |5000049999 |
 
 <img src="graficos/insertionsort-permutations.png" />
+
+<br>
+<br>
+
+## Selection Sort
+Tem como objetivo colocar os menores elementos na nas primeiras posições do vetor, até que a ordenação seja concluída. Para isso, o algoritmo é composto por dois laços, sendo mais externo que controla o índice e o segundo que faz a varredura do vetor.<br>
+Esse é um algoritmo **in-place**, simples de ser implementado, sendo bom para **conjuntos de dados pequenos**. Seu problema está em conjuntos grandes de dados, sendo muito ruim nesse caso.<br>
+Seu funcionamento pode ser demonstrado abaixo:
+
+![](https://upload.wikimedia.org/wikipedia/commons/9/94/Selection-Sort-Animation.gif)
+
+### Complexidade:
+Outro ponto importante desse algorítmo, é que esse não possuí melhor ou pior caso, sendo todos $O(n²)$, já que os dois loops sempre serão executados.
+| Melhor Caso | Caso Médio | Pior Caso |
+|-------------|------------|-----------|
+| $$O(n^2)$$  | $$O(n^2)$$ | $$O(n^2)$$|
+<br>
+
+### `resultados de comparações:`
+|Tamanho| Melhor Caso | Caso Médio | Pior Caso |
+|-------|-------------|------------|-----------|
+|1000   |0.001776     |0.001954    |0.001647   |
+|2000   |0.004957     |0.008119    |0.003765   |
+|3000   |0.008207     |0.014469    |0.008133   |
+|4000   |0.014764     |0.023644    |0.014653   |
+|5000   |0.022579     |0.029435    |0.023242   |
+|6000   |0.032562     |0.039787    |0.032427   |
+|7000   |0.043733     |0.051300    |0.044482   |
+|8000   |0.057052     |0.061920    |0.057157   |
+|9000   |0.071594     |0.078010    |0.070800   |
+|10000  |0.087695     |0.094605    |0.086660   |
+|20000  |0.338148     |0.347386    |0.337202   |
+|30000  |0.746420     |0.748919    |0.751096   |
+|40000  |1.339960     |1.358792    |1.337883   |
+|50000  |2.066474     |2.076138    |2.069322   |
+|60000  |3.069226     |3.064959    |3.089263   |
+|70000  |4.008881     |4.029718    |4.000716   |
+|80000  |4.893991     |4.941121    |4.894962   |
+|90000  |6.233660     |6.236459    |6.220954   |
+|100000 |7.687194     |7.692758    |7.693500   |
+
+<br>
+
+**GRAFICO AQUI!**
+
+<br>
+
+### `resultados de comparações:`
+|Tamanho| Melhor Caso | Caso Médio | Pior Caso |
+|-------|-------------|------------|-----------|
+|1000   |499500       |499500      |499500     |
+|2000   |1999000      |1999000     |1999000    |
+|3000   |4498500      |4498500     |4498500    |
+|4000   |7998000      |7998000     |7998000    |
+|5000   |12497500     |12497500    |12497500   |
+|6000   |17997000     |17997000    |17997000   |
+|7000   |24496500     |24496500    |24496500   |
+|8000   |31996000     |31996000    |31996000   |
+|9000   |40495500     |40495500    |40495500   |
+|10000  |49995000     |49995000    |49995000   |
+|20000  |199990000    |199990000   |199990000  |
+|30000  |449985000    |449985000   |449985000  |
+|40000  |799980000    |799980000   |799980000  |
+|50000  |1249975000   |1249975000  |1249975000 |
+|60000  |1799970000   |1799970000  |1799970000 |
+|70000  |2449965000   |2449965000  |2449965000 |
+|80000  |3199960000   |3199960000  |3199960000 |
+|90000  |4049955000   |4049955000  |4049955000 |
+|100000 |4999950000   |4999950000  |4999950000 |
+
+<br>
+
+**GRAFICO AQUI!**
+
+<br>
+
+### `resultados de trocas:`
+|Tamanho| Melhor Caso | Caso Médio | Pior Caso |
+|-------|-------------|------------|-----------|
+|1000   |1998         |1998        |1998       |
+|2000   |3998         |3998        |3998       |
+|3000   |5998         |5998        |5998       |
+|4000   |7998         |7998        |7998       |
+|5000   |9998         |9998        |9998       |
+|6000   |11998        |11998       |11998      |
+|7000   |13998        |13998       |13998      |
+|8000   |15998        |15998       |15998      |
+|9000   |17998        |17998       |17998      |
+|10000  |19998        |19998       |19998      |
+|20000  |39998        |39998       |39998      |
+|30000  |59998        |59998       |59998      |
+|40000  |79998        |79998       |79998      |
+|50000  |99998        |99998       |99998      |
+|60000  |119998       |119998      |119998     |
+|70000  |139998       |139998      |139998     |
+|80000  |159998       |159998      |159998     |
+|90000  |179998       |179998      |179998     |
+|100000 |199998       |199998      |199998     |
+
+<br>
+
+**GRAFICO AQUI!**
+
+<br>
